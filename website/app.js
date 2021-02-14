@@ -16,13 +16,45 @@ const temprature = document.querySelector("#temp");
 const content = document.querySelector("#content");
 
 // Event listener to add function to existing HTML DOM element
-
+generateButton.addEventListener("click", () => {
+    console.log("Clicked")
+    console.log(zipCodeInput.value);
+    fetchWeatherData(apiKey, "21648")
+ /*  fetchWeather(url, zip.value, APIKey)
+    .then((temp) => {
+      return { date: newDate, temp, content: feelings.value };
+    })
+    .then((data) => {
+      saveData("/api/projectdata", data);
+      return data;
+    })
+    .then(({ temp, date, content }) => updateUI(temp, date, content))
+    .catch((e) => {
+      // There can be proper error handling with UI
+      console.error(e);
+    }); */
+});
 
 // Create a new date instance dynamically with JS
 let d = new Date();
 let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
 
 /* Function called by event listener */
+const fetchWeatherData = async (apiKey, zipCode) => {
+    const fetchUrl = `${apiBaseUrl}?zip=${zipCode},us&units=metric&appid=${apiKey}` 
+    try {
+        const request = await fetch(fetchUrl);
+        const response = await request.json();
+        console.log(response);
+        const { main } = response;
+        console.log(main.temp);
+        return main.temp; 
+    } catch (e) {
+        alert("an Error occured", e)
+    }
+}
+
+
 
 /* Function to GET Web API Data*/
 
