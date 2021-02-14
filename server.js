@@ -1,5 +1,5 @@
 // Setup empty JS object to act as endpoint for all routes
-projectData = {};
+let projectData = {};
 
 // Require Express to run server and routes
 import express from "express";
@@ -23,12 +23,20 @@ app.use(express.static('website'));
 // Initialize all route with a callback function
 
 // Callback function to complete GET '/all'
-app.get("/api/projectData", (req, res) => {
+app.get("/all", (req, res) => {
   res.status(200).send(projectData);
 });
 
-
 // Post Route
+app.post("/api/projectData", (req, res) => {
+    const {date, temprature, content} = req.body;
+    projectData[date] = {
+        temprature,
+        content
+    };
+    res.status(200).send();
+});
+
 
 // Setup Server
 app.listen(process.env.PORT || 8000, () =>
