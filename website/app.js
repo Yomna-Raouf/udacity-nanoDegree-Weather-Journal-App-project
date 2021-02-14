@@ -17,7 +17,7 @@ const content = document.querySelector("#content");
 
 // Create a new date instance dynamically with JS
 let d = new Date();
-let newDate = d.getMonth() + "/" + d.getDate() + "/" + d.getFullYear();
+let newDate = d.getMonth() +1 + "/" + d.getDate() + "/" + d.getFullYear();
 
 /* Function called by event listener */
 const handleSubmit = () => {
@@ -33,7 +33,7 @@ const handleSubmit = () => {
       postData("/api/projectData", data);
       displayMostRecentEntry();
     })
-    .catch((err) => console.log(err));
+    .catch((err) => alert("an error occured,please, try again  later"));
 };
 
 // Event listener to add function to existing HTML DOM element
@@ -82,13 +82,13 @@ const getData = async (route) => {
 const displayMostRecentEntry = async () => {
   const projectData = await getData("/all");
   // display date
-  date.innerText = Object.keys(projectData)[0];
+  date.innerHTML = Object.keys(projectData)[0];
   // Display temprature value
-  temp.innerText = projectData[Object.keys(projectData)[0]].temprature
+  temp.innerHTML = projectData[Object.keys(projectData)[0]].temprature
     ? `${projectData[Object.keys(projectData)[0]].temprature} deg`
     : "";
   // Display User Feelings
-  content.innerText = projectData[Object.keys(projectData)[0]].content
+  content.innerHTML = projectData[Object.keys(projectData)[0]].content
     ? projectData[Object.keys(projectData)[0]].content
     : "Hope you're doing great ✌😄";
 };
