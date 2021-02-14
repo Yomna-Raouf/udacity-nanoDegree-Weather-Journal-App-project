@@ -58,7 +58,19 @@ const fetchWeatherData = async (apiKey, zipCode) => {
 };
 
 /* Function to POST data */
-
+const postData = async (route, data) => {
+  try {
+    await fetch(route, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+  } catch (e) {
+    alert("an error occured while processing your data", e);
+  }
+};
 
 
 /* Function to GET Project Data */
