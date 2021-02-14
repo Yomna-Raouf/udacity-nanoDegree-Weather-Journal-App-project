@@ -1,14 +1,14 @@
-# Weather-Journal App Project
+## Udacity Nanodegree Program - Weather-Journal-App
 
-## Overview
-This project requires you to create an asynchronous web app that uses Web API and user data to dynamically update the UI. 
+# Description 
+This is a simple Weather Journal App that uses HTML, CSS, JavaScript, NodeJS and Express. It's an asynchronous web app that uses Web API and user data to dynamically update the UI. 
 
-## Instructions
-This will require modifying the `server.js` file and the `website/app.js` file. You can see `index.html` for element references, and once you are finished with the project steps, you can use `style.css` to style your application to customized perfection.
+# To Run the project
 
-## Extras
-If you are interested in testing your code as you go, you can use `tests.js` as a template for writing and running some basic tests for your code.
+If you want to run the project just download all files. Open command line and just write
 
+ `node server.js`
+and open your favorite browser then write `http://localhost:8000` .
 
 
 
