@@ -23,7 +23,9 @@ app.use(express.static('website'));
 // Initialize all route with a callback function
 
 // Callback function to complete GET '/all'
-
+app.get("/api/projectData", (req, res) => {
+  res.status(200).send(projectData);
+});
 
 
 // Post Route
