@@ -15,45 +15,40 @@ const date = document.querySelector("#date");
 const temprature = document.querySelector("#temp");
 const content = document.querySelector("#content");
 
-// Event listener to add function to existing HTML DOM element
-generateButton.addEventListener("click", () => {
-  console.log("Clicked");
-  console.log(zipCodeInput.value);
-  console.log(userFeelingsInput.value);
- // fetchWeatherData(apiKey, "21648");
-  /*  fetchWeather(url, zip.value, APIKey)
-    .then((temp) => {
-      return { date: newDate, temp, content: feelings.value };
-    })
-    .then((data) => {
-      saveData("/api/projectdata", data);
-      return data;
-    })
-    .then(({ temp, date, content }) => updateUI(temp, date, content))
-    .catch((e) => {
-      // There can be proper error handling with UI
-      console.error(e);
-    }); */
-});
-
 // Create a new date instance dynamically with JS
 let d = new Date();
-let newDate = d.getMonth() + "." + d.getDate() + "." + d.getFullYear();
+let newDate = d.getMonth() + "/" + d.getDate() + "/" + d.getFullYear();
 
 /* Function called by event listener */
+const handleSubmit = () => {
+  fetchWeatherData(apiKey, zipCodeInput.value)
+    .then((response) => {
+      return {
+        date: newDate,
+        temprature: response,
+        content: userFeelingsInput.value,
+      };
+    })
+    .then((data) => {
+      postData("/api/projectData", data);
+      displayMostRecentEntry();
+    })
+    .catch((err) => console.log(err));
+};
 
-/* Function to GET Web API Data*/
+// Event listener to add function to existing HTML DOM element
+generateButton.addEventListener("click", handleSubmit);
+
+/* Function to GET OpenWeatherMap Web API Data*/
 const fetchWeatherData = async (apiKey, zipCode) => {
   const fetchUrl = `${apiBaseUrl}?zip=${zipCode},us&units=metric&appid=${apiKey}`;
   try {
     const request = await fetch(fetchUrl);
     const response = await request.json();
-    console.log(response);
     const { main } = response;
-    console.log(main.temp);
     return main.temp;
   } catch (e) {
-    alert("an Error occured", e);
+    alert("Ooops! we couldn't find this zip code 😕", e);
   }
 };
 
@@ -72,5 +67,28 @@ const postData = async (route, data) => {
   }
 };
 
-
 /* Function to GET Project Data */
+const getData = async (route) => {
+  try {
+    const request = await fetch(route);
+    const response = await request.json();
+    return response;
+  } catch (e) {
+    alert("an error occured while processing your data", e);
+  }
+};
+
+// Display Most Recent Entry on the web page
+const displayMostRecentEntry = async () => {
+  const projectData = await getData("/all");
+  // display date
+  date.innerText = Object.keys(projectData)[0];
+  // Display temprature value
+  temp.innerText = projectData[Object.keys(projectData)[0]].temprature
+    ? `${projectData[Object.keys(projectData)[0]].temprature} deg`
+    : "";
+  // Display User Feelings
+  content.innerText = projectData[Object.keys(projectData)[0]].content
+    ? projectData[Object.keys(projectData)[0]].content
+    : "Hope you're doing great ✌😄";
+};

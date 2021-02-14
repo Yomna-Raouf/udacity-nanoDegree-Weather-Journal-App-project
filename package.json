@@ -1,0 +1,37 @@
+{
+    "name": "weather-journal-app",
+    "version": "1.0.0",
+    "description": "Weather journal app for udacity frontEnd nanoDegree",
+    "main": "server.js",
+    "type": "module",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "nodemon server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Yomna-Raouf/udacity-nanoDegree-Weather-Journal-App-project.git"
+    },
+    "keywords": [
+        "JavaScript",
+        "HTML",
+        "CSS",
+        "Express",
+        "Node",
+        "OpenWeatherApi"
+    ],
+    "author": "Yomna Raouf",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/Yomna-Raouf/udacity-nanoDegree-Weather-Journal-App-project/issues"
+    },
+    "homepage": "https://github.com/Yomna-Raouf/udacity-nanoDegree-Weather-Journal-App-project#readme",
+    "dependencies": {
+        "body-parser": "^1.19.0",
+        "cors": "^2.8.5",
+        "express": "^4.17.1"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.7"
+    }
+}
